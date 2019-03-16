@@ -40,9 +40,11 @@ const Product = db.define(
   },
   {
     hooks: {
-      beforeValidate: (product, options) => {
+      beforeValidate: product => {
         product.availability = availabilityEnum[product.availability]
       }
     }
   }
 )
+
+module.exports = Product
