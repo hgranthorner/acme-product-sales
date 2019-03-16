@@ -1,4 +1,4 @@
-const db = require('../db-cnxn')
+const db = require('../db')
 
 const availabilityEnum = {
   instock: 0,
@@ -28,9 +28,9 @@ const Product = db.define(
     },
     discount: {
       type: db.Sequelize.FLOAT,
-      set() {
-        const discount = this.getDataValue('discount')
-        return discount / 100
+      set(discount) {
+        console.log(discount)
+        this.setDataValue('discount', discount / 100 === 0 ? null : discount / 100)
       }
     },
     availability: {
