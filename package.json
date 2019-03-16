@@ -1,0 +1,17 @@
+{
+  "name": "acme-products-sales",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "start:dev": "DATABASE_URL=postgresql://localhost/acme-products-sales nodemon server/server"
+  },
+  "keywords": [],
+  "author": "Grant Horner",
+  "license": "ISC",
+  "dependencies": {
+    "express": "^4.16.4",
+    "pg": "^7.9.0",
+    "sequelize": "^5.1.0"
+  }
+}
