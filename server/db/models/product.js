@@ -29,7 +29,6 @@ const Product = db.define(
     discount: {
       type: db.Sequelize.FLOAT,
       set(discount) {
-        console.log(discount)
         this.setDataValue('discount', discount / 100 === 0 ? null : discount / 100)
       }
     },
