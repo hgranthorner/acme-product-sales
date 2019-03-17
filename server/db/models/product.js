@@ -21,9 +21,7 @@ const Product = db.define(
       allowNull: false,
       get() {
         const price = this.getDataValue('price')
-        const discount = this.getDataValue('discount')
-        const discPrice = (price - price * discount).toFixed(2)
-        return '$' + discPrice.toString()
+        return '$' + price.toFixed(2).toString()
       }
     },
     discount: {
@@ -34,13 +32,27 @@ const Product = db.define(
     },
     availability: {
       type: db.Sequelize.INTEGER,
-      allowNull: false
+      allowNull: false,
+      get() {
+        const availability = this.getDataValue('availability')
+        return Object.keys(availabilityEnum)[availability]
+      },
+      validate: {
+        min: 0,
+        max: 2
+      }
+    },
+    discountedPrice: {
+      type: db.Sequelize.VIRTUAL,
+      get() {
+        return '$' + (this.getDataValue('price') - this.getDataValue('price') * this.getDataValue('discount')).toFixed(2).toString()
+      }
     }
   },
   {
     hooks: {
       beforeValidate: product => {
-        product.availability = availabilityEnum[product.availability]
+        product.dataValues.availability = availabilityEnum[product.dataValues.availability]
       }
     }
   }

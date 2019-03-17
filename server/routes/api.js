@@ -14,6 +14,7 @@ router.post('/products', (req, res, next) => {
 })
 
 router.delete('/products', (req, res, next) => {
+  console.log(req.body)
   Product.destroy({ where: { id: req.body.id } })
     .then(() => res.sendStatus(204))
     .catch(next)
