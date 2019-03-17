@@ -22,7 +22,7 @@ const Product = db.define(
       get() {
         const price = this.getDataValue('price')
         const discount = this.getDataValue('discount')
-        const discPrice = (price - price * discount, 2).toFixed(2)
+        const discPrice = (price - price * discount).toFixed(2)
         return '$' + discPrice.toString()
       }
     },
