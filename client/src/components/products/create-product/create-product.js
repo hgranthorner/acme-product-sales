@@ -1,7 +1,8 @@
 import React, { useState } from 'react'
 import { TextField, SelectField } from './input-fields'
+import axios from 'axios'
 
-const CreateProduct = ({ createProduct }) => {
+const CreateProduct = ({ addProduct }) => {
   const [name, setName] = useState('')
   const [price, setPrice] = useState('')
   const [discount, setDiscount] = useState('')
@@ -10,6 +11,15 @@ const CreateProduct = ({ createProduct }) => {
 
   const handleChange = (fn, e) => {
     fn(e.target.value)
+  }
+
+  const createProduct = e => {
+    console.log(e)
+    e.preventDefault()
+    axios
+      .post('/api/products', { data: { name, price, discount, availability } })
+      .then(res => addProduct(res.data))
+      .catch(e => console.error(`Failed to create product! Here's why:\n${e}`))
   }
 
   return (
@@ -23,7 +33,9 @@ const CreateProduct = ({ createProduct }) => {
         options={availabilityOptions}
         handleChange={e => handleChange(setAvailability, e)}
       />
-      <button type="submit">CREATE</button>
+      <button type="submit" className="btn btn-primary">
+        CREATE
+      </button>
     </form>
   )
 }

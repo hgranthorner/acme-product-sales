@@ -23,10 +23,17 @@ const App = () => {
       .catch(e => console.error(`Failed to remove item! Here's why: ${e}`))
   }
 
+  const addProduct = product => {
+    const newProducts = products
+    newProducts.push(product)
+    setProducts(newProducts)
+    console.log(products)
+  }
+
   return (
     <HashRouter>
       <h1>Acme Products/Sales</h1>
-      <Nav />
+      <Nav productsCount={products.length} salesCount={products.filter(p => p.discount).length} />
       <Switch>
         <Route path="/" exact component={Home} />
         <Route path="/products" exact render={() => <ProductList products={products} removeProduct={removeProduct} />} />
@@ -35,7 +42,7 @@ const App = () => {
           exact
           render={() => <ProductList products={products.filter(product => product.discount)} removeProduct={removeProduct} />}
         />
-        <Route path="/products/create" exact component={CreateProduct} />
+        <Route path="/products/create" exact render={() => <CreateProduct addProduct={addProduct} />} />
       </Switch>
     </HashRouter>
   )

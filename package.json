@@ -28,6 +28,7 @@
     "@babel/preset-react": "^7.0.0",
     "babel-loader": "^8.0.5",
     "faker": "^4.1.0",
+    "morgan": "^1.9.1",
     "webpack-cli": "^3.3.0"
   }
 }
